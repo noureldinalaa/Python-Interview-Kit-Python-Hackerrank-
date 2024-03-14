@@ -1,0 +1,46 @@
+# https://www.hackerrank.com/challenges/one-month-preparation-kit-caesar-cipher-1/problem?isFullScreen=true&h_l=interview&playlist_slugs%5B%5D=preparation-kits&playlist_slugs%5B%5D=one-month-preparation-kit&playlist_slugs%5B%5D=one-month-week-two
+
+Solution 1 : 
+
+def caesarCipher(s, k):
+    # Write your code here
+    encrypted_word = ""
+    alph = list(map(chr, range(97,123)))
+    alph_copy =  alph.copy()
+    for i in range(k):
+        alph.append(alph[0])
+        alph.pop(0)
+
+    alph_map = dict(map(lambda i,j : (i,j), alph_copy, alph))
+
+    for letter in s:
+        if letter == " ":
+            continue
+        elif letter in alph_copy or letter.isupper():
+            if letter.isupper():
+                corresponding_letter = alph_map[letter.lower()]
+                corresponding_letter = corresponding_letter.capitalize()
+            else:
+                corresponding_letter =alph_map[letter]
+            encrypted_word = encrypted_word + corresponding_letter + ""
+        else:
+            encrypted_word = encrypted_word + letter + ""
+    return encrypted_word
+
+Solution 2:
+
+def caesar_cipher(s, k):
+    result = ""
+    for char in s:
+        if char.isalpha():
+            shift = k % 26
+            if char.islower():
+                result += chr((ord(char) - ord('a') + shift) % 26 + ord('a'))
+            else:
+                result += chr((ord(char) - ord('A') + shift) % 26 + ord('A'))
+        else:
+            result += char
+    return result
+
+
+
